@@ -11,7 +11,7 @@
 - P49 同上，本业下方还有“从图3.1中得出”，这句改成“从图3.6中得出”
 - P51 尾部 void 单独占一行怪怪的，把它和下一行合并起来把
 - P52 3.3.2 "前文中讲到了"改成“第2章中”
-- P67 最底下的代码对齐有点错乱，
+- P67 最底下的代码对齐有点错乱。将 ep_ptable_queue_proc 函数中 `f (epi->nwait >= 0 && (pwq = kmem_cache_alloc(pwq_cache, GFP_KERNEL)))` 改成 `if (epi->nwait >= 0 && (pwq = kmem_cache_alloc(pwq_cache, GFP_KERNEL)))`
 - P83: 最后面 Redis 6.0 版本中也开始支持“多进程”了改成“多线程”。
 - P85: 根据错误图4中所示，将 3) 发送网络数据的时候 这个问题中的第二段，挪到 4.1 小节最后吧，更通顺一些。
 - P129: 本页最后的一个 “个” 字删掉吧
@@ -29,7 +29,7 @@
 - P22: 此页开头的代码描述和样式有问题，整段代码改成如下形式。
 ```c
 //file: drivers/net/ethernet/intel/igb/igb_main.c
-int igb_setup_rx_resources(struct igb_ring *tx_ring)
+int igb_setup_rx_resources(struct igb_ring *rx_ring)
 {
 	//1. 申请 igb_rx_buffer 数组内存
 	size = sizeof(struct igb_rx_buffer) * rx_ring->count;
@@ -185,13 +185,22 @@ telnet: connect to address 10.162.*.*: Connection refused
 - P22: 此页开头的代码函数中的参数有问题，修改下参数部分。
 ```c
 int igb_setup_rx_resources(struct igb_ring *tx_ring)
-```  
+```
 
 修改为
 ```c
 int igb_setup_rx_resources(struct igb_ring *rx_ring)
 ```
+- P25，图2.11，驱动 lgb_poll()，这里应该是 igb_poll()
 - P27: 目的是保证网络包的接收不霸占CPU不放。这里“不霸占CPU不放”修改成“不一直霸占CPU”，这样更通顺一些。
+- P67 代码中的“if”少了个“i”。将 ep_ptable_queue_proc 函数中 
+```c
+f (epi->nwait >= 0 && (pwq = kmem_cache_alloc(pwq_cache, GFP_KERNEL)))
+``` 
+改成 
+```c
+if (epi->nwait >= 0 && (pwq = kmem_cache_alloc(pwq_cache, GFP_KERNEL)))
+```
 - P92: 图4.5发送队列细节中的数组应该是tx不是rx。所以“igb_rx_buffer”应该改成“igb_tx_buffer”。"e1000_adv_rx_desc" 应该改为 “e1000_adv_tx_desc”。
 - P190: 图7.3 NUMA中的node，图片中的“内存控置器”应该为“内存控制器”
 - P193: 图7.6伙伴系统中的三个 “RELCLAIMABLE” 中多了个L，应该改为“RECLAIMABLE”
@@ -203,5 +212,5 @@ int igb_setup_rx_resources(struct igb_ring *rx_ring)
 
 
 ### 致谢
-感谢@巩鹏军、@彭东林、@孙国路、@王锦、@随行、@harrytc、@t涛、@point、@LJ、@WannaCry、@久 等同学提出的非常棒的改进建议！
+感谢@巩鹏军、@彭东林、@孙国路、@王锦、@随行、@harrytc、@t涛、@point、@LJ、@WannaCry、@久、@jame 等同学提出的非常棒的改进建议！
 
